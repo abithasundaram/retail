@@ -7,6 +7,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     url: 'git@github.com:abithasundaram/retail.git'
+                    credentialsId: 'git'
             }
         }
 
