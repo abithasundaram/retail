@@ -6,7 +6,7 @@ pipeline {
 		stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'git@github.com:abithasundaram/retail.git'
+                    url: 'git@github.com:abithasundaram/retail.git',
                     credentialsId: 'git'
             }
         }
