@@ -18,6 +18,17 @@ pipeline {
                     credentialsId: 'github-ssh'
             }
         }
+        
+        stage('Debug') {
+		    steps {
+		        sh '''
+		          echo "HOME=$HOME"
+		          echo "WORKSPACE=$WORKSPACE"
+		          ls -ld /root
+		          ls -ld /root/.m2 || echo "no .m2 yet"
+		        '''
+		    }
+		}
 
         stage('Build') {
             steps {
