@@ -2,15 +2,24 @@ pipeline {
 	agent {
 		docker { 
 			image 'maven:3.9.12-eclipse-temurin-21'
-			args '-v $WORKSPACE/.m2:/root/.m2' 
+			args "-e HOME=${env.WORKSPACE} -u root"
 		}
 	}
 	
 	environment {
-        MAVEN_OPTS = "-Dmaven.repo.local=/root/.m2"
+       MAVEN_USER_HOME = "${env.WORKSPACE}/.m2"
     }
     
 	stages {
+		stage('Prepare') {
+            steps {
+                sh '''
+                  mkdir -p $WORKSPACE/.m2/repository
+                  chmod -R 777 $WORKSPACE/.m2
+                '''
+            }
+        }
+        
 		stage('Checkout') {
             steps {
                 git branch: 'main',
